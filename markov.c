@@ -152,3 +152,31 @@ void generate(char *prefix[])
     
     return;
 }
+
+/* free memory allocate by strdup!
+ */
+void str_free()
+{
+    int i = 0;
+    State *sp = NULL;
+    Suffix *suffix = NULL;
+
+    for (i = 0; i < HASHSIZE; i++) {
+        sp = statable[i];
+        while (sp != NULL) {
+            /* free suffix */
+            while ((suffix = sp->suffix) != NULL) {
+                if (strcmp(suffix->word, NOWORD) != 0)
+                    free(suffix->word);
+                sp->suffix = suffix->next;
+                free(suffix);
+            }
+
+            sp = sp->next;
+            free(statable[i]);
+            statable[i] = sp;
+        }
+    }
+
+    return;
+}

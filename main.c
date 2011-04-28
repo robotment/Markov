@@ -17,6 +17,7 @@ int main()
         prefix[i] = NOWORD;
 
     generate(prefix);
+    //str_free();
 
     return 0;
 }
